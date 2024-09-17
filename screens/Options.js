@@ -10,7 +10,7 @@ const Options =()=>
             <DetailListItem title={"Change language"}/>
             <DetailListItem title={"Sign Out"}/>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create(

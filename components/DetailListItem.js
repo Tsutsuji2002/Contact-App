@@ -1,12 +1,11 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { Icon } from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import PropTypes from 'prop-types';
 
 import colors from '../utility/colors';
 
-const DetailListItem = ({icon, title, subtitle}) =>
-{
+const DetailListItem = ({icon, title, subtitle}) => {
     return (
         <View style={styles.borderContainer}>
             <View style={styles.wrapper}>
@@ -28,16 +27,14 @@ const DetailListItem = ({icon, title, subtitle}) =>
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
-export default DetailListItem;
-
-DetailListItem.PropTypes = {
+DetailListItem.propTypes = {
     icon: PropTypes.string,
     title: PropTypes.string,
     subtitle: PropTypes.string,
-}
+};
 
 const styles = StyleSheet.create({
     borderContainer: {
@@ -71,3 +68,5 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
 });
+
+export default DetailListItem;

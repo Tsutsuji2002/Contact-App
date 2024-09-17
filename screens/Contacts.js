@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { StyleSheet, Text, View, FlatList, ActivityIndicator } from "react-native";
 import { fetchContacts } from "../utility/api";
 import ContactListItem from "../components/ContactListItem";
@@ -12,17 +12,23 @@ const Contacts = ({ navigation }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchContactsLoading());
-        fetchContacts()
-            .then((contacts) => {
-                dispatch(fetchContactsSuccess(contacts));
-            })
-            .catch(() => {
-                dispatch(fetchContactsError());
-            });
-    }, [dispatch]);
+        if (contacts.length === 0 && !loading && !error) {
+            dispatch(fetchContactsLoading());
+            fetchContacts()
+                .then((fetchedContacts) => {
+                    dispatch(fetchContactsSuccess(fetchedContacts));
+                })
+                .catch((error) => {
+                    dispatch(fetchContactsError(error.message));
+                });
+        }
+    }, [dispatch, contacts.length, loading, error]);
 
-    const contactsSorted = [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+    const contactsSorted = useMemo(() => {
+        return contacts && contacts.length > 0 
+            ? [...contacts].sort((a, b) => a.name.localeCompare(b.name)) 
+            : [];
+    }, [contacts]);
 
     const renderContact = ({ item }) => {
         const { name, avatar, phone } = item;
@@ -39,8 +45,9 @@ const Contacts = ({ navigation }) => {
     return (
         <View style={styles.container}>
             {loading && <ActivityIndicator color="blue" size="large" />}
-            {error && <Text>Error...</Text>}
-            {!loading && !error && (
+            {error && <Text>{error || 'Error loading contacts...'}</Text>}
+            {!loading && !error && contacts.length === 0 && <Text>No contacts available</Text>}
+            {!loading && !error && contacts.length > 0 && (
                 <FlatList data={contactsSorted} keyExtractor={keyExtractor} renderItem={renderContact} />
             )}
         </View>

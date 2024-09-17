@@ -1,14 +1,20 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Image, Text } from "react-native";
-import { Icon } from "react-native-vector-icons/MaterialIcons";
-import PropType from 'prop-types'
+import Icon from "react-native-vector-icons/MaterialIcons";
+import PropTypes from 'prop-types';
+import colors from '../utility/colors';
 
-const ContactThumbnail = ({name, phone, avatar, textColor, onPress}) =>
-{
+const ContactThumbnail = ({
+    name = '',
+    phone = '',
+    avatar,
+    textColor = 'white',
+    onPress = null
+}) => {
     const colorStyle = {
         color: textColor,
-    }
-    const ImageComponent= onPress ? TouchableOpacity : View;
+    };
+    const ImageComponent = onPress ? TouchableOpacity : View;
 
     return (
         <View style={styles.container}>
@@ -19,28 +25,21 @@ const ContactThumbnail = ({name, phone, avatar, textColor, onPress}) =>
 
             {phone !== '' && (
                 <View style={styles.phoneSection}>
-                    <Icon name='phone' size={16} style={{color: textColor}}/>
-                    <Text style={[style.phone, colorStyle]}></Text>
+                    <Icon name="phone" size={16} style={{color: textColor}}/>
+                    <Text style={[styles.phone, colorStyle]}>{phone}</Text>
                 </View>
             )}
         </View>
-    )
-}
-
-export default ContactThumbnail;
+    );
+};
 
 ContactThumbnail.propTypes = {
-    name: PropType.string,
-    avatar: PropType.string,
-    phone: PropType.string,
-    onPress: PropType.func,
-}
-ContactThumbnail.defaultProps = {
-    name: '',
-    phone: '',
-    textColor: 'white',
-    onPress: null,
-}
+    name: PropTypes.string,
+    avatar: PropTypes.string,
+    phone: PropTypes.string,
+    onPress: PropTypes.func,
+    textColor: PropTypes.string,
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -74,3 +73,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+
+export default ContactThumbnail;

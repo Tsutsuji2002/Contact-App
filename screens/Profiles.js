@@ -28,10 +28,8 @@ const Profile =({route})=>
                 <DetailListItem icon="smartphone" title="personal" subtitle={cell}/>
             </View>
         </View>
-    )
+    );
 }
-
-export default Profile;
 
 const styles = StyleSheet.create({
     container: {
@@ -48,3 +46,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     }
 })
+
+export default Profile;

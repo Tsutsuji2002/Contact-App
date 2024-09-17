@@ -15,7 +15,7 @@ const getTabBarIcon = icon => ({tintColor}) => (
 )
 
 const Stack = createNativeStackNavigator();
-const ContactsScreen = ()=>
+const ContactsScreens = ()=>
 {
     return (
         <Stack.Navigator
@@ -26,7 +26,7 @@ const ContactsScreen = ()=>
                 headerTitleAlign: 'center',
             }}
         >
-            <Stack.Screen name='Contacts' component={Contacts} options={{title:"Contact"}}/>
+            <Stack.Screen name='Contacts' component={Contacts} options={{title:"Contacts"}}/>
             <Stack.Screen name="Profile" component={Profile} options={({route})=>
                                                             {
                                                                 const {contact} = route.params;
@@ -40,9 +40,9 @@ const ContactsScreen = ()=>
                                                                 }
                                                             }}/>      
         </Stack.Navigator>
-    )
+    );
 }
-const FavoritesScreen = ()=>
+const FavoritesScreens = ()=>
 {
     return (
         <Stack.Navigator
@@ -51,9 +51,9 @@ const FavoritesScreen = ()=>
             <Stack.Screen name='Favorites' component={Favorites} options={{title:"Favorites"}}/>
             <Stack.Screen name="Profile" component={Profile} options={{title:"Profile"}}/>      
         </Stack.Navigator>
-    )
+    );
 }
-const UserScreen = ()=>
+const UserScreens = ({navigation})=>
 {
     return (
         <Stack.Navigator
@@ -89,11 +89,11 @@ const TabNavigator= ()=>
                 activeTintColor= {colors.greyLight}
                 inactiveColor={colors.greyDark}
                 >
-                    <Tab.Screen name='ContactsScreen' component={ContactsScreen} options={{tabBarIcon: getTabBarIcon('list')}}/>
-                    <Tab.Screen name="FavoritesScreen" component={FavoritesScreen} options={{tabBarIcon: getTabBarIcon('star')}}/>
-                    <Tab.Screen name="UserScreen" component={UserScreen} options={{tabBarIcon: getTabBarIcon('person')}}/>
+                    <Tab.Screen name='ContactsScreens' component={ContactsScreens} options={{tabBarIcon: getTabBarIcon('list')}}/>
+                    <Tab.Screen name="FavoritesScreens" component={FavoritesScreens} options={{tabBarIcon: getTabBarIcon('star')}}/>
+                    <Tab.Screen name="UserScreens" component={UserScreens} options={{tabBarIcon: getTabBarIcon('person')}}/>
             </Tab.Navigator>
         </NavigationContainer>
-    )
+    );
 }
 export default TabNavigator;

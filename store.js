@@ -1,37 +1,37 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-import { fetchContacts } from "./utility/api";
 
-const contactsSlide = createSlice({
-    name: 'counter',
+const contactsSlice = createSlice({
+    name: 'contacts',
     initialState: {
         contacts: [],
         loading: false,
-        error: false,
+        error: null,
+        user: null,
     },
     reducers: {
-        fetchContactsLoading: (state, action) =>
-        {
+        fetchContactsLoading: (state) => {
             state.loading = true;
-            state.loading = false;
+            state.error = null;
         },
-        fetchContactsSuccess: (state, action) =>
-        {
+        fetchContactsSuccess: (state, action) => {
             state.contacts = action.payload;
-            state.loading = true;
             state.loading = false;
+            state.error = null;
         },
-        fetchContactsError: (state, action) =>
-        {
-            return ({
-                ...state,
-                loading: false,
-                error: true,
-            });
+        fetchContactsError: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        setUser: (state, action) => {
+            state.user = action.payload;
         },
     }
-})
+});
 
-export const {fetchContactsLoading, fetchContactsSuccess, fetchContactsError} = contactsSlide.actions;
-export default Store = configureStore({
-    reducer: contactsSlide.reducer,
-})
+export const { fetchContactsLoading, fetchContactsSuccess, fetchContactsError, setUser } = contactsSlice.actions;
+
+const Store = configureStore({
+    reducer: contactsSlice.reducer,
+});
+
+export default Store;
