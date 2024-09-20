@@ -6,6 +6,7 @@ import Store from './store';
 import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -34,8 +35,10 @@ const App = () => {
   }
   return (
     <Provider store={Store}>
-      <DrawerNavigator />
-      <StatusBar style="auto" />
+      <NavigationContainer>
+        <DrawerNavigator />
+        <StatusBar style="auto" />
+      </NavigationContainer>
     </Provider>
   );
 };

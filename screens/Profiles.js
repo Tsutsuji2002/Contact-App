@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Linking } from "react-native";
 import ContactThumbnail from "../components/ContactThumbnails";
 import DetailListItem from "../components/DetailListItem";
@@ -8,6 +8,8 @@ import colors from '../utility/colors';
 const Profile = ({ route, navigation }) => {
     const { contact } = route.params;
     const { avatar, name, email, phone, cell } = contact;
+
+    const [isFavorite, setIsFavorite] = useState(false);
 
     const handleEditPress = () => {
         navigation.navigate("EditContact", { contact });
@@ -25,6 +27,10 @@ const Profile = ({ route, navigation }) => {
         Linking.openURL(`mailto:${email}?subject=&body=`).catch(err => {
             console.error('An error occurred', err);
         });
+    };
+
+    const toggleFavorite = () => {
+        setIsFavorite(!isFavorite);
     };
 
     return (
@@ -52,6 +58,15 @@ const Profile = ({ route, navigation }) => {
                     onPress={handleGmailPress} 
                 />
             </View>
+
+            <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
+                <MaterialIcons 
+                    name={isFavorite ? "favorite" : "favorite-border"} 
+                    size={24} 
+                    color={isFavorite ? "red" : "gray"} 
+                />
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.editButton} onPress={handleEditPress}>
                 <MaterialIcons name="edit" size={24} color="white" />
                 <Text style={styles.editButtonText}>Edit</Text>
@@ -73,6 +88,18 @@ const styles = StyleSheet.create({
     detailSection: {
         flex: 1,
         backgroundColor: 'white',
+    },
+    favoriteButton: {
+        position: 'absolute',
+        left: 20,
+        bottom: 20,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        width: 60,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 5,
     },
     editButton: {
         position: 'absolute',

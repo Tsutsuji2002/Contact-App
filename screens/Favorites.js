@@ -1,15 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, SafeAreaView, Dimensions } from "react-native";
 import ContactThumbnail from "../components/ContactThumbnails";
 import { useSelector } from "react-redux";
 
-const keyExtractor = ({phone}) => phone;
+const { width } = Dimensions.get('window');
 
-const Favorites = ({navigation}) => {
-    const {contacts, loading, error} = useSelector((state) => state);
+const keyExtractor = ({ phone }) => phone;
 
-    const renderFavoriteThumbnail = ({item}) => {
-        const {avatar, name, phone} = item;
+const Favorites = ({ navigation }) => {
+    const { contacts, loading, error } = useSelector((state) => state);
+
+    const renderFavoriteThumbnail = ({ item }) => {
+        const { avatar, name, phone } = item;
         return (
             <ContactThumbnail
                 avatar={avatar}
@@ -37,6 +39,7 @@ const Favorites = ({navigation}) => {
                         numColumns={3}
                         contentContainerStyle={styles.list}
                         renderItem={renderFavoriteThumbnail}
+                        columnWrapperStyle={styles.columnWrapper}
                     />
                 )}
             </View>
@@ -53,21 +56,28 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
+        padding: 5,
     },
     list: {
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 0,
+    },
+    columnWrapper: {
+        justifyContent: 'space-between',
+        marginBottom: 20,
     },
     emptyStateText: {
         fontSize: 18,
         color: '#666666',
         textAlign: 'center',
+        paddingHorizontal: 20,
     },
     errorText: {
         fontSize: 18,
         color: 'red',
         textAlign: 'center',
+        paddingHorizontal: 20,
     },
 });
 

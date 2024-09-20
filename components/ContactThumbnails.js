@@ -15,16 +15,16 @@ const ContactThumbnail = ({
         <View style={styles.container}>
             <ImageComponent onPress={onPress}>
                 <Image 
-                    source={{uri: avatar}} 
+                    source={{ uri: avatar }} 
                     style={styles.avatar}
                     defaultSource={require('../assets/default-avatar.png')}
                 />
             </ImageComponent>
-            {name !== '' && <Text style={styles.name} numberOfLines={1}>{name}</Text>}
+            {name !== '' && <Text style={styles.name}>{name}</Text>}
             {phone !== '' && (
                 <View style={styles.phoneSection}>
                     <Icon name="phone" size={14} style={styles.phoneIcon}/>
-                    <Text style={styles.phone} numberOfLines={1}>{phone}</Text>
+                    <Text style={styles.phone}>{phone}</Text>
                 </View>
             )}
         </View>
@@ -40,7 +40,7 @@ ContactThumbnail.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        width: 100,
+        width: 120, // Increased width for the container to fit the name
         marginHorizontal: 8,
         marginBottom: 24,
         alignItems: 'center',
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         textAlign: 'center',
         marginBottom: 4,
+        flexShrink: 1, // Ensures the name shrinks if necessary to avoid overflowing
     },
     phoneSection: {
         flexDirection: 'row',
