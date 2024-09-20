@@ -1,32 +1,34 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import PropTypes from 'prop-types';
 
 import colors from '../utility/colors';
 
-const DetailListItem = ({icon, title, subtitle}) => {
+const DetailListItem = ({icon, title, subtitle, onPress}) => {
     return (
-        <View style={styles.borderContainer}>
-            <View style={styles.wrapper}>
-                <View style={styles.container}>
-                    {icon && (
-                        <Icon
-                            name={icon}
-                            size={24}
-                            style={{
-                                color: colors.black,
-                                marginRight: 20,
-                            }}
-                        />
-                    )}
-                    <View style={styles.contentContainer}>
-                        <Text style={[styles.title]}>{title}</Text>
-                        {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.borderContainer}>
+                <View style={styles.wrapper}>
+                    <View style={styles.container}>
+                        {icon && (
+                            <Icon
+                                name={icon}
+                                size={24}
+                                style={{
+                                    color: colors.black,
+                                    marginRight: 20,
+                                }}
+                            />
+                        )}
+                        <View style={styles.contentContainer}>
+                            <Text style={[styles.title]}>{title}</Text>
+                            {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -34,6 +36,7 @@ DetailListItem.propTypes = {
     icon: PropTypes.string,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    onPress: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

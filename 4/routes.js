@@ -6,6 +6,8 @@ import Contacts from "../screens/Contacts";
 import Profile from "../screens/Profiles";
 import Favorites from "../screens/Favorites";
 import User from "../screens/User";
+import AddContact from "../screens/AddContact";
+import EditContact from "../screens/EditContact";
 import { MaterialIcons } from "@expo/vector-icons";
 import Options from "../screens/Options";
 import colors from "../utility/colors";
@@ -41,6 +43,8 @@ const ContactsScreen = ()=>
                                                                     }
                                                                 }
                                                             }}/>      
+            <Stack.Screen name="AddContact" component={AddContact} options={{ title: "Add Contact" }} />
+            <Stack.Screen name="EditContact" component={EditContact} options={{ title: "Edit Contact" }} />
         </Stack.Navigator>
     )
 }
